@@ -1,0 +1,51 @@
+---
+- name: Install Jenkins and OpenJDK
+  hosts: localhost
+  become: yes  # To run tasks with sudo
+
+  tasks:
+    - name: Install default-jre
+      apt:
+        name: default-jre
+        state: present
+      become: yes
+
+    - name: Add Jenkins key to the system
+      shell: |
+        sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
+          https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+      become: yes
+
+    - name: Add Jenkins apt repository entry
+      lineinfile:
+        path: /etc/apt/sources.list.d/jenkins.list
+        line: 'deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/'
+        create: yes
+      become: yes
+
+    - name: Update local package index
+      apt:
+        update_cache: yes
+      become: yes
+
+    - name: Install fontconfig and openjdk-17-jre
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - fontconfig
+        - openjdk-17-jre
+      become: yes
+
+    - name: Install Jenkins
+      apt:
+        name: jenkins
+        state: present
+      become: yes
+
+    - name: Check Jenkins service status
+      service:
+        name: jenkins
+        state: started
+        enabled: yes
+      become: yes
