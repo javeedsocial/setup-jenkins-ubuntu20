@@ -13,5 +13,5 @@ sudo apt-get install fontconfig openjdk-17-jre -y
 #Install jenkins
 sudo apt-get install jenkins -y 
 #Check service status 
-sudo service status jenkins
+sudo service jenkins status
 
