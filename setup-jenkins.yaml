@@ -4,12 +4,6 @@
   become: yes  # To run tasks with sudo
 
   tasks:
-    - name: Install default-jre
-      apt:
-        name: default-jre
-        state: present
-      become: yes
-
     - name: Add Jenkins key to the system
       shell: |
         sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
