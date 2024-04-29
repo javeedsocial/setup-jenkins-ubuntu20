@@ -1,5 +1,5 @@
 #INstall jdk
-sudo apt install default-jre -y
+#sudo apt install default-jre -y
 #add the key to your system
 sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
     https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
